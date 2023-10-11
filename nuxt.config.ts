@@ -8,8 +8,9 @@ export default defineNuxtConfig({
       '@pinia/nuxt',
       '@pinia-plugin-persistedstate/nuxt',
       '@nuxtjs/tailwindcss',
-      '@nuxt/content'
+      '@nuxt/content',
       // '@nuxtjs/supabase'
+      '@nuxthq/studio'
   ],
   runtimeConfig :{
     public :{
