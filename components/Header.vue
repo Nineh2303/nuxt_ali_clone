@@ -44,7 +44,7 @@
           <div class="border-b"/>
           <ul class="bg-white">
             <li
-                @click="navigateTo('/orders')"
+                @click="navigateTo('/')"
                 class="text-[13px] py-2 px-4 w-full hover:bg-gray-200">
               My Orders
             </li>
