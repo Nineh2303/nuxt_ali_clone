@@ -38,13 +38,13 @@
                 </ul>
               </div>
             </div>
-            <NuxtLink
-            v-else
-            to="/address"
-            class="flex items-center text-blue-500 hover:text-red-400">
-              <Icon name="mdi:plus" size="18" class="mr-2"/>
-              Add new Address
-            </NuxtLink>
+<!--            <NuxtLink-->
+<!--            v-else-->
+<!--            to="/"-->
+<!--            class="flex items-center text-blue-500 hover:text-red-400">-->
+<!--              <Icon name="mdi:plus" size="18" class="mr-2"/>-->
+<!--              Add new Address-->
+<!--            </NuxtLink>-->
           </div>
           <div id="Items" class="bg-white rounded-lg p-4 mt-4">
             <div v-for="product in products">
