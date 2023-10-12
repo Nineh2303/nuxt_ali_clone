@@ -7,7 +7,7 @@
             <div class="text-xl font-semibold mb-2">Shipping Address</div>
             <div v-if="true">
               <NuxtLink
-                  to="/"
+                  to="/index"
                   class="flex items-center pb-2 text-blue-500 hover:text-red-400">
                 <Icon name="mdi:plus" size="18" class="mr-2"/>
                 Update Address

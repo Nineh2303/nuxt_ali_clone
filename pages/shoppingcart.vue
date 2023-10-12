@@ -7,7 +7,7 @@
           <div class="text-xl text-center mt-4">No items yet ?</div>
 
           <div v-if="true" class="flex text-center">
-            <NuxtLink to="/"
+            <NuxtLink to="/index"
                       class="bg-[#FD374F] w-full text-white text-[21px] font-semibold p-1.5 rounded-full mt-4">Sign in
             </NuxtLink>
           </div>
