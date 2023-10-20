@@ -6,12 +6,12 @@
           <div class="bg-white rounded-lg p-4">
             <div class="text-xl font-semibold mb-2">Shipping Address</div>
             <div v-if="true">
-<!--              <NuxtLink-->
-<!--                  to="/"-->
-<!--                  class="flex items-center pb-2 text-blue-500 hover:text-red-400">-->
-<!--                <Icon name="mdi:plus" size="18" class="mr-2"/>-->
-<!--                Update Address-->
-<!--              </NuxtLink>-->
+              <NuxtLink
+                  to="/address"
+                  class="flex items-center pb-2 text-blue-500 hover:text-red-400">
+                <Icon name="mdi:plus" size="18" class="mr-2"/>
+                Update Address
+              </NuxtLink>
               <div class="pt-2 border-t">
                 <div class="underline pb-1">Delivery Address</div>
                 <ul class="text-xs">
@@ -38,13 +38,13 @@
                 </ul>
               </div>
             </div>
-<!--            <NuxtLink-->
-<!--            v-else-->
-<!--            to="/"-->
-<!--            class="flex items-center text-blue-500 hover:text-red-400">-->
-<!--              <Icon name="mdi:plus" size="18" class="mr-2"/>-->
-<!--              Add new Address-->
-<!--            </NuxtLink>-->
+            <NuxtLink
+            v-else
+            to="/address"
+            class="flex items-center text-blue-500 hover:text-red-400">
+              <Icon name="mdi:plus" size="18" class="mr-2"/>
+              Add new Address
+            </NuxtLink>
           </div>
           <div id="Items" class="bg-white rounded-lg p-4 mt-4">
             <div v-for="product in products">
