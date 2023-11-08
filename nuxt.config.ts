@@ -37,5 +37,16 @@ export default defineNuxtConfig({
             exclude: [],
         }
     },
+    nitro: {
+        baseURL: "http://localhost:8000",
+        prerender: {
+            crawlLinks: true,
+            failOnError: false,
+        },
+    },
+    routeRules: {
+        "/**": { swr: true },
+        "/dashboard/**": { ssr: false },
+    },
 
 })
