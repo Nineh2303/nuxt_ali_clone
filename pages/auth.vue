@@ -6,6 +6,7 @@
        </NuxtLink>
      </div>
     <div class="max-w-[400px] mx-auto px-2">
+      {{user}}
       <div class="text-center my-6">Login/Register</div>
       <button
           @click="login('google')"
@@ -20,7 +21,7 @@
                 hover:bg-gray-100
                 rounded-full
                 text-lg
-                font-semibol
+                font-semibold
                 "
       >
         <img src="/google-logo.png" class="w-full max-w-[30px]">
@@ -46,27 +47,30 @@
         <img src="/github-logo.png" class="w-full max-w-[30px]">
         <div>Github</div>
       </button>
+      <button @click="logout">LOGOUT</button>
     </div>
   </div>
 </template>
 
 <script setup>
-  // import {useSupabaseClient} from "@nuxtjs/supabase/dist/runtime/composables/useSupabaseClient.js";
-  // import {useSupabaseUser} from "@nuxtjs/supabase/dist/runtime/composables/useSupabaseUser.js";
+  const client = useSupabaseClient()
+  const user = useSupabaseUser();
+  watchEffect(()=>{
+    console.log(user)
+    if(user.value){
+      return navigateTo("/")
+    }
+  })
+  const login = async(prov)=>{
+    const {data, error}= await client.auth.signInWithOAuth({
+      provider : prov,
+    })
 
-  // const client =useSupabaseClient()
-  // const user = useSupabaseUser()
-  // watchEffect(()=>{
-  //   if(!user.value){
-  //     return navigateTo("/")
-  //   }
-  // })
-  // const login = async(prov)=>{
-  //   const {data, error}= await client.auth.signInWithOAuth({
-  //     provider = prov,
-  //
-  //   })
-  // }
+  }
+  const logout = async ()=>{
+    const {data, error } =  await client.auth.signOut() ;
+    console.log(data)
+  }
 </script>
 
 <style lang="scss" scoped>
