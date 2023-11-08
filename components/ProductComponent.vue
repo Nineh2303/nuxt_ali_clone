@@ -4,7 +4,7 @@
       :id ="`ProductComponent${product.id}`"
       class="bg-white inline-block rounded hover:shadow-[0_0_10px_3px_rgba(0,0,0,0.15)] cursor-pointer">
       <NuxtLink :to="`/item/${product.id}`">
-        <img :src="product.productImg" class="max-h-[280px] min-w-[130px]">
+        <img :src="product.url" class="max-h-[280px] min-w-[130px]">
         <div id="ProductDetails">
           <span class="flex items-center justify-start gap-3 px-1 pt-1">
             <span class="text-[#FF6674] font-semibold">$ {{priceComputed}}</span>
@@ -23,7 +23,7 @@
               <Icon name="material-symbols:star-rate" color="#757575" class="ml-1.5"/>4.7
             </p>
           <p class="px-1 pt-0.5 text-sx text-[#252525]">
-            {{product.productName.substring(0,50)}}
+            {{product.title}}
           </p>
           <p class="px-1 pb-1">
             <span class="text-[#009A66] text-xs font-semibold">Free Shipping </span>
@@ -43,10 +43,10 @@ const {product} = toRefs(props)
 
 
 const priceComputed =computed(()=>{
-  return product.value.productPrice
+  return product.value.price
 })
 const oldPriceComputed = computed(()=>{
-  let res= (product.value.productPrice + (product.value.productPrice/20))/100
+  let res= (product.value.price + (product.value.price/20))/100
   return res.toFixed(2)
 })
 </script>

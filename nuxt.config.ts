@@ -9,8 +9,8 @@ export default defineNuxtConfig({
       '@pinia-plugin-persistedstate/nuxt',
       '@nuxtjs/tailwindcss',
       '@nuxt/content',
-      // '@nuxtjs/supabase'
-      '@nuxthq/studio'
+      '@nuxthq/studio',
+      '@nuxtjs/supabase',
   ],
   runtimeConfig :{
     public :{
@@ -23,6 +23,13 @@ export default defineNuxtConfig({
         {src: 'https://js.stripe.com/v3/', defer:true}
       ]
     }
-  }
-
+  },
+    supabase :{
+        redirect: false,
+        redirectOptions: {
+            login: '/auth',
+            callback: '/auth',
+            exclude: [],
+        }
+    }
 })

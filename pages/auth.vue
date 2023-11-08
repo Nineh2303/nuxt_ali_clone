@@ -6,7 +6,6 @@
        </NuxtLink>
      </div>
     <div class="max-w-[400px] mx-auto px-2">
-      {{user}}
       <div class="text-center my-6">Login/Register</div>
       <button
           @click="login('google')"
@@ -47,7 +46,7 @@
         <img src="/github-logo.png" class="w-full max-w-[30px]">
         <div>Github</div>
       </button>
-      <button @click="logout">LOGOUT</button>
+
     </div>
   </div>
 </template>

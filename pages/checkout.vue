@@ -5,7 +5,7 @@
         <div class="md:w-[65%]">
           <div class="bg-white rounded-lg p-4">
             <div class="text-xl font-semibold mb-2">Shipping Address</div>
-            <div v-if="true">
+            <div v-if="currentAddress && currentAddress.data">
               <NuxtLink
                   to="/address"
                   class="flex items-center pb-2 text-blue-500 hover:text-red-400">
@@ -17,23 +17,23 @@
                 <ul class="text-xs">
                   <li class="flex items-center gap-2">
                     <div>Contact name:</div>
-                    <div class="font-bold">Test</div>
+                    <div class="font-bold">{{currentAddress.data.name}}</div>
                   </li>
                   <li class="flex items-center gap-2">
                     <div>Address:</div>
-                    <div class="font-bold">Test</div>
+                    <div class="font-bold">{{currentAddress.data.address}}</div>
                   </li>
                   <li class="flex items-center gap-2">
                     <div>Zip code:</div>
-                    <div class="font-bold">Test</div>
+                    <div class="font-bold">{{currentAddress.data.zipcode}}</div>
                   </li>
                   <li class="flex items-center gap-2">
                     <div>City:</div>
-                    <div class="font-bold">Test</div>
+                    <div class="font-bold">{{currentAddress.data.city}}</div>
                   </li>
                   <li class="flex items-center gap-2">
                     <div>Country:</div>
-                    <div class="font-bold">Test</div>
+                    <div class="font-bold">{{currentAddress.data.country}}</div>
                   </li>
                 </ul>
               </div>
@@ -48,7 +48,7 @@
           </div>
           <div id="Items" class="bg-white rounded-lg p-4 mt-4">
             <div v-for="product in products">
-              <CheckoutItem :product="product"></CheckoutItem>
+              <CheckoutItem :product="userStore.checkout"></CheckoutItem>
             </div>
           </div>
         </div>
@@ -100,7 +100,9 @@ import {useUserStore} from "~/stores/user.js";
 import {useRouter} from "vue-router";
 
 const userStore = useUserStore()
-const router = useRouter()
+const route = useRoute()
+
+const user = useSupabaseUser();
 
 let stripe = null
 let element = null
@@ -110,6 +112,25 @@ let total = ref(0)
 let clientSecret = null
 let currentAddress = ref(null)
 let isProcessing = ref(false)
+
+onBeforeMount(async ()=>{
+  if(userStore.cart.length<1)
+    {
+      return navigateTo("/shoppingcart")
+    }
+
+    total.value =0.00
+
+    if(user.value){
+      currentAddress.value = await useFetch(`/api/prisma/get-address-by-user/${user.value.id}`)
+      setTimeout(()=>userStore.isLoading = false,200)
+    }
+})
+watchEffect(()=>{
+  if(route.fullPath =='/checkout' && !user.value){
+    return navigateTo('/auth')
+  }
+})
 
 onMounted(() => {
   isProcessing.value = true
@@ -129,47 +150,5 @@ const stripeInit = async () => {
 const pay = async () => {
 
 }
-const products = [
-  {
-    id: "641d682987310057ae4deef4",
-    productName: "Lakewood SunghaJung signature",
-    productBrand: "Lakewood",
-    productPrice: 999, productDescription: "The description",
-    productImg: "https://res.cloudinary.com/nineh2000/image/upload/v1679648808/guitar-shop/iy8dmo3e48gjyrl4u4id.jpg",
-    inStock: false, countInStock: 10, productSlug: "lakewood-sunghajung-signature",
-  },
-  {
-    id: "642136d63cd8a2073c9deb44",
-    productName: "Morris SC-145U ",
-    productBrand: "Morris",
-    productPrice: 999, productDescription: "The description",
-    productImg: "https://res.cloudinary.com/nineh2000/image/upload/v1679898327/guitar-shop/u30jwicvfbefw8qlps8k.jpg",
-    inStock: true, countInStock: 10, productSlug: "morris-sc-145u",
-  },
-  {
-    id: "642137b53cd8a2073c9deb49",
-    productName: "Taylor 214CE",
-    productBrand: "Taylor",
-    productPrice: 999, productDescription: "The description",
-    productImg: "https://res.cloudinary.com/nineh2000/image/upload/v1679898550/guitar-shop/nxu8yrrlenjkrm84djy3.png",
-    inStock: true, countInStock: 10, productSlug: "taylor-214ce",
-  },
-  {
-    id: "64fadd6a517188916156abb9",
-    productName: "Alvarez AD30",
-    productBrand: "Alvarez",
-    productPrice: 899, productDescription: "The description",
-    productImg: "https://res.cloudinary.com/nineh2000/image/upload/v1694162281/guitar-shop/p3lbg9rdd2t1zqbwwnmc.png",
-    inStock: true, countInStock: 10, productSlug: "alvarez-ad30",
-  },
-  {
-    id: "64fade13517188916156abbf",
-    productName: "Alvarez AGFM80CEAR",
-    productBrand: "Alvarez",
-    productPrice: 1049, productDescription: "The description",
-    productImg: "https://res.cloudinary.com/nineh2000/image/upload/v1694162449/guitar-shop/gan3vhjlzap295eilgon.png",
-    inStock: true, countInStock: 10, productSlug: "alvarez-agfm80cear",
-  }
-]
 
 </script>

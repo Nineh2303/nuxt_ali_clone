@@ -50,7 +50,9 @@
             </li>
             <li
                 v-if="true"
-                class="text-[13px] py-2 px-4 w-full hover:bg-gray-200">
+                class="text-[13px] py-2 px-4 w-full hover:bg-gray-200"
+                @click=signOut();
+            >
               Sign out
             </li>
 
@@ -121,7 +123,7 @@
       <button
           @click="userStore.isMenuOverlay = true"
           class="md:hidden block rounded-full p-1.5 -mt-[4px] hover:bg-gray-200">
-        <Icon name="radix-icons:humburger-menu" size="33"></Icon>
+        <Icon name="radix-icons:hamburger-menu" size="33"></Icon>
       </button>
     </div>
   </div>
@@ -130,11 +132,37 @@
 <script setup>
 import {useUserStore} from "~/stores/user.js";
 
+const client = useSupabaseClient();
+const user = useSupabaseUser();
 const userStore = useUserStore();
 
 let isAccountMenu = ref(false)
 let isSearching = ref(true)
 let isCartHover = ref(false)
 let searchItem = ref('')
+
+const signOut = async () => {
+  const {data, error} = await client.auth.signOut();
+  console.log(data)
+  return navigateTo("/auth")
+
+const searchByName = useDebounce(async () => {
+  isSearching.value = true
+  items.value = await useFetch(`/api/prisma/search-by-name/${searchItem.value}`)
+  isSearching.value = false
+}, 100)
+
+watch(() => searchItem.value, async () => {
+  if (!searchItem.value) {
+    setTimeout(() => {
+      items.value = ''
+      isSearching.value = false
+      return
+    }, 500)
+  }
+  searchByName()
+})
+
+}
 </script>
 

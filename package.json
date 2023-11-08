@@ -25,13 +25,13 @@
     "@nuxtjs/tailwindcss": "^6.8.0",
     "@pinia-plugin-persistedstate/nuxt": "^1.1.2",
     "@pinia/nuxt": "^0.4.11",
-    "@prisma/client": "^5.3.1",
+    "@prisma/client": "^5.5.2",
     "@stripe/stripe-js": "^2.1.7",
     "dotenv": "^16.3.1",
     "nuxt-icon": "^0.5.0",
     "nuxt-lodash": "^2.5.0",
     "pinia": "^2.1.6",
-    "prisma": "^5.3.1",
+    "prisma": "^5.5.2",
     "stripe": "^13.8.0"
   }
 }
